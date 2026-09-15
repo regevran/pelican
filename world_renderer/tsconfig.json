@@ -1,3 +1,11 @@
 {
-  "compilerOptions": {}
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "strict": true,
+    "noEmit": true,
+    "types": ["node", "vite/client"]
+  },
+  "include": ["src", "vite.config.ts"]
 }

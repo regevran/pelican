@@ -1,0 +1,19 @@
+html,
+body,
+#cesium-container,
+main {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+
+#status {
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  font-family: sans-serif;
+  left: 1rem;
+  padding: 0.5rem 0.75rem;
+  position: fixed;
+  top: 1rem;
+  z-index: 1;
+}

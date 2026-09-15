@@ -1,1 +1,25 @@
-{}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorldState",
+  "description": "A snapshot of the pools and flocks in the world model.",
+  "type": "object",
+  "properties": {
+    "pools": {
+      "type": "array",
+      "items": {
+        "$ref": "types/pool.schema.json"
+      }
+    },
+    "flocks": {
+      "type": "array",
+      "items": {
+        "$ref": "types/flock.schema.json"
+      }
+    }
+  },
+  "required": [
+    "pools",
+    "flocks"
+  ],
+  "additionalProperties": false
+}

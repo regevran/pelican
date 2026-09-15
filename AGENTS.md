@@ -6,3 +6,4 @@
 - Use `Velocity` for shared motion vectors: Earth-centered, Earth-fixed (ECEF) x, y, and z components in meters per second.
 - A `Pool` has a unique machine-readable `name` and an exact water-surface boundary. Protection zones and dynamic state do not belong in `Pool`.
 - A `Flock` is a tracked world-model entity with a unique machine-readable `name`, `Coordinate` position, and `Velocity` motion vector. Do not add sensor evidence or classification fields until they are designed.
+- `WorldState` is a snapshot that composes arrays of `Pool` and `Flock`.

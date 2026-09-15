@@ -12,4 +12,4 @@ Reusable domain types live in `types/`. `Coordinate` represents a WGS 84 geograp
 
 `Pool` represents a named fish pool and the exact boundary of its water surface. It does not contain protection-zone or dynamic-state information.
 
-`world_state.schema.json` - contains the schema for the state of the world
+`world_state.schema.json` contains a snapshot of the pools and flocks in the world model.

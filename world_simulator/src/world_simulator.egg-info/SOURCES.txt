@@ -1,0 +1,9 @@
+README.md
+pyproject.toml
+src/world_simulator/__init__.py
+src/world_simulator/__main__.py
+src/world_simulator.egg-info/PKG-INFO
+src/world_simulator.egg-info/SOURCES.txt
+src/world_simulator.egg-info/dependency_links.txt
+src/world_simulator.egg-info/requires.txt
+src/world_simulator.egg-info/top_level.txt
