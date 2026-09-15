@@ -48,9 +48,9 @@ def static_world_state() -> dict[str, object]:
                     "height_meters": 50.0,
                 },
                 "velocity": {
-                    "x_meters_per_second": 0.0,
-                    "y_meters_per_second": 0.0,
-                    "z_meters_per_second": 0.0,
+                    "x_meters_per_second": 1.0,
+                    "y_meters_per_second": -2.0,
+                    "z_meters_per_second": -3.2,
                 },
             }
         ],

@@ -1,4 +1,5 @@
 import amqp, { type ChannelModel } from "amqplib";
+import type { ServerResponse } from "node:http";
 import { relative, sep } from "node:path";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig, type Plugin } from "vite";
@@ -20,6 +21,13 @@ const cesiumSourceStripCount = relative(process.cwd(), cesiumSource).split(sep).
 function worldStateConsumer(): Plugin {
   let connection: ChannelModel | undefined;
   let latestWorldState: string | undefined;
+  const subscribers = new Set<ServerResponse>();
+
+  function broadcast(worldState: string): void {
+    for (const subscriber of subscribers) {
+      subscriber.write(`data: ${worldState}\n\n`);
+    }
+  }
 
   async function startConsumer(): Promise<void> {
     connection = await amqp.connect(rabbitMqUrl);
@@ -34,6 +42,7 @@ function worldStateConsumer(): Plugin {
 
       latestWorldState = message.content.toString("utf-8");
       channel.ack(message);
+      broadcast(latestWorldState);
     });
   }
 
@@ -44,18 +53,28 @@ function worldStateConsumer(): Plugin {
         server.config.logger.error(`Unable to consume WorldState: ${String(error)}`);
       });
 
-      server.middlewares.use("/api/world-state", (_request, response) => {
-        response.setHeader("Content-Type", "application/json");
-        if (latestWorldState === undefined) {
-          response.statusCode = 503;
-          response.end(JSON.stringify({ error: "WorldState is not available yet." }));
-          return;
+      server.middlewares.use("/api/world-state", (request, response) => {
+        response.writeHead(200, {
+          "Content-Type": "text/event-stream",
+          "Cache-Control": "no-cache",
+          Connection: "keep-alive",
+        });
+
+        if (latestWorldState !== undefined) {
+          response.write(`data: ${latestWorldState}\n\n`);
         }
 
-        response.end(latestWorldState);
+        subscribers.add(response);
+        request.on("close", () => {
+          subscribers.delete(response);
+        });
       });
 
       server.httpServer?.once("close", () => {
+        for (const subscriber of subscribers) {
+          subscriber.end();
+        }
+        subscribers.clear();
         void connection?.close();
       });
     },
