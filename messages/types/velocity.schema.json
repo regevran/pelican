@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Velocity",
+  "description": "An Earth-centered, Earth-fixed (ECEF) velocity vector in meters per second, using the WGS 84 reference frame.",
+  "type": "object",
+  "properties": {
+    "x_meters_per_second": {
+      "type": "number"
+    },
+    "y_meters_per_second": {
+      "type": "number"
+    },
+    "z_meters_per_second": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "x_meters_per_second",
+    "y_meters_per_second",
+    "z_meters_per_second"
+  ],
+  "additionalProperties": false
+}

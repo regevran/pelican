@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Flock",
+  "description": "A tracked flock in the world model.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "A unique, machine-readable tracking name for the flock's lifetime.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "position": {
+      "$ref": "coordinate.schema.json"
+    },
+    "velocity": {
+      "$ref": "velocity.schema.json"
+    }
+  },
+  "required": [
+    "name",
+    "position",
+    "velocity"
+  ],
+  "additionalProperties": false
+}

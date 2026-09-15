@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pool",
+  "description": "A fish pool defined by the exact boundary of its water surface.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "A unique, machine-readable pool name.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "boundary": {
+      "description": "The ordered vertices of the water-surface boundary. The polygon is implicitly closed; do not repeat the first vertex.",
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "$ref": "coordinate.schema.json"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "boundary"
+  ],
+  "additionalProperties": false
+}
