@@ -14,4 +14,4 @@ world_simulator -> WorldState -> RabbitMQ -> world_state_stream -> SSE -> world_
 
 `WorldState` is a snapshot of the world model: pools and flocks in a local scene frame — meters, x east, y north, z up, with `z = 0` on the pool water surface. `world_renderer` is a browser page, so `world_state_stream` carries the same messages to it over HTTP instead of asking the browser to speak AMQP.
 
-`messages/README.md` describes the frame and the conventions the contracts follow.
+`messages/README.md` describes the frame and the conventions the contracts follow. `RUNNING.md` says how to start, check and stop the components.

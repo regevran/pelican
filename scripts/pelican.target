@@ -1,0 +1,14 @@
+# The whole Pelican stack, as one thing to start and stop.
+#
+# This file is a template; see the note in pelican-broker.service.
+
+[Unit]
+Description=Pelican — the whole stack
+Documentation=file:@REPO@/RUNNING.md
+# Stated here as well as in each unit's [Install], and for a reason: Wants= is
+# what makes `systemctl --user start pelican.target` bring up all four without
+# anything having been enabled first. [Install] only matters when you enable.
+Wants=pelican-broker.service pelican-simulator.service pelican-bridge.service pelican-renderer.service
+
+[Install]
+WantedBy=default.target

@@ -284,6 +284,17 @@ if (connection !== undefined) {
     console.warn(`Lost the message bus: ${describeError(error)}`);
   });
 
+  // Missing this listener does not leave the error merely unreported: Node
+  // re-throws an unhandled 'error' event and the process dies. The recovery
+  // layer emits one when a connection closes abnormally — it arrives as
+  // "Unexpected close", which is what a broker going away mid-conversation
+  // looks like — so without this the component is at its most fragile exactly
+  // when it is supposed to be recovering. Recovery has already scheduled the
+  // next attempt by the time this fires, so there is nothing to do but say so.
+  connection.on("error", (error) => {
+    console.warn(`Message bus error: ${describeError(error)}`);
+  });
+
   connection.on("connect-failed", (error) => {
     console.warn(`Cannot reach the message bus: ${describeError(error)}`);
   });

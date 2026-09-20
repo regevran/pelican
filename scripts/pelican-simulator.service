@@ -1,0 +1,21 @@
+# Pelican world simulator: publishes WorldState to the bus.
+#
+# This file is a template; see the note in pelican-broker.service.
+
+[Unit]
+Description=Pelican world simulator (publishes WorldState)
+Documentation=file:@REPO@/RUNNING.md
+# Ordered after the broker, but deliberately not Require=d on it. The simulator
+# is useless without a broker, so Restart= is what actually handles the broker
+# arriving late or leaving: the process exits, systemd starts it again.
+After=pelican-broker.service
+
+[Service]
+Type=exec
+WorkingDirectory=@REPO@
+ExecStart=@REPO@/world_simulator/.venv/bin/python -m world_simulator
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=pelican.target

@@ -1,0 +1,21 @@
+# Pelican message broker.
+#
+# This file is a template. It carries @REPO@ wherever the repository's own path
+# belongs, because a unit file cannot work that out for itself; install.sh fills
+# it in and writes the result under ~/.config/systemd/user/. Do not copy it there
+# by hand — a unit still holding @REPO@ is a unit that cannot start.
+
+[Unit]
+Description=Pelican message broker (RabbitMQ)
+Documentation=file:@REPO@/RUNNING.md
+
+[Service]
+Type=exec
+WorkingDirectory=@REPO@
+ExecStart=/usr/bin/docker compose up
+ExecStop=/usr/bin/docker compose down
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=pelican.target

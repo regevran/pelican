@@ -1,0 +1,24 @@
+# Pelican world state stream: carries WorldState from the bus to HTTP clients
+# as Server-Sent Events.
+#
+# This file is a template; see the note in pelican-broker.service.
+
+[Unit]
+Description=Pelican world state stream (WorldState over HTTP/SSE)
+Documentation=file:@REPO@/RUNNING.md
+After=pelican-broker.service
+
+[Service]
+Type=exec
+WorkingDirectory=@REPO@/world_state_stream
+# A unit inherits no shell environment, and node here comes from nvm, which
+# lives on PATH only via the shell's profile. A login shell is how the unit
+# finds it, and `exec` keeps node as the main process so signals and its exit
+# status reach systemd. Pinning an absolute .nvm path would work too, until the
+# next node upgrade.
+ExecStart=/bin/bash -lc 'exec node world-state-stream.mjs'
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=pelican.target

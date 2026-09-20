@@ -1,0 +1,23 @@
+# Pelican world renderer: serves the page that draws the scene.
+#
+# This file is a template; see the note in pelican-broker.service.
+
+[Unit]
+Description=Pelican world renderer (Vite dev server)
+Documentation=file:@REPO@/RUNNING.md
+After=pelican-bridge.service
+
+[Service]
+Type=exec
+WorkingDirectory=@REPO@/world_renderer
+# See the note in pelican-bridge.service about the login shell and nvm.
+#
+# This runs the dev server rather than a build, so the stack comes up without a
+# build step and picks up edits as you make them. It is still the process you
+# stop when you want to run the renderer yourself in a terminal.
+ExecStart=/bin/bash -lc 'exec npm run dev'
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=pelican.target
