@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Position",
+  "description": "A position in the local scene frame: meters east, north and up, with z = 0 on the reference plane (the pool water surface).",
+  "type": "object",
+  "properties": {
+    "x_meters": {
+      "description": "Meters east of the producer's origin on the reference plane.",
+      "type": "number"
+    },
+    "y_meters": {
+      "description": "Meters north of the producer's origin on the reference plane.",
+      "type": "number"
+    },
+    "z_meters": {
+      "description": "Meters above the reference plane.",
+      "type": "number"
+    }
+  },
+  "required": [
+    "x_meters",
+    "y_meters",
+    "z_meters"
+  ],
+  "additionalProperties": false
+}

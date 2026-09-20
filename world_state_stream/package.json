@@ -1,0 +1,11 @@
+{
+  "name": "world-state-stream",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node world-state-stream.mjs"
+  },
+  "dependencies": {
+    "amqplib": "^2.0.1"
+  }
+}

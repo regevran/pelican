@@ -144,3 +144,6 @@ vite.config.ts.timestamp-*
 
 # pyc
 *.pyc
+
+# vnv
+.venv/

@@ -2,19 +2,19 @@
   "name": "world-renderer",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build"
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "amqplib": "^2.0.1",
-    "cesium": "^1.145.0"
+    "three": "^0.186.0"
   },
   "devDependencies": {
-    "@types/amqplib": "^0.10.8",
     "@types/node": "^26.5.1",
+    "@types/three": "^0.186.0",
     "typescript": "^7.0.2",
-    "vite": "^8.3.0",
-    "vite-plugin-static-copy": "^4.1.1"
+    "vite": "^8.3.0"
   }
 }

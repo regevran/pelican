@@ -1,19 +1,195 @@
-html,
-body,
-#cesium-container,
-main {
-  height: 100%;
-  margin: 0;
-  width: 100%;
+/*
+ * The page is the canvas: everything else floats over it. The one rule that
+ * matters is that the label layer must not take pointer events — labels sit on
+ * top of the scene, and a label that swallowed a drag would make the camera
+ * stick wherever a flock happened to be.
+ */
+
+:root {
+  --background: #0b1218;
+  --panel: rgba(8, 18, 25, 0.82);
+  --panel-border: rgba(111, 147, 168, 0.28);
+  --text: #d8e6ee;
+  --text-dim: #8099a9;
+  --flock: #e8863a;
+  --flock-edge: #ffc48a;
+  --pool: #7fd4ff;
+  --ok: #6fd08c;
+  --warn: #e8c26a;
+  --error: #e8705f;
 }
 
-#status {
-  background: rgba(0, 0, 0, 0.75);
-  color: white;
-  font-family: sans-serif;
-  left: 1rem;
-  padding: 0.5rem 0.75rem;
-  position: fixed;
-  top: 1rem;
-  z-index: 1;
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+#scene-container {
+  position: absolute;
+  inset: 0;
+}
+
+#scene-container canvas {
+  display: block;
+}
+
+#label-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  /* Labels are read-only overlays; a drag belongs to the camera underneath. */
+  pointer-events: none;
+}
+
+/* -- Entity labels --------------------------------------------------------- */
+
+.entity-label {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  white-space: nowrap;
+  text-shadow:
+    0 0 3px var(--background),
+    0 0 6px var(--background);
+}
+
+.entity-label-name {
+  color: var(--flock-edge);
+  font-weight: 600;
+}
+
+.entity-label-altitude {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+}
+
+.pool-label {
+  color: var(--pool);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  text-shadow:
+    0 0 3px var(--background),
+    0 0 6px var(--background);
+}
+
+/* -- Altitude axis --------------------------------------------------------- */
+
+.axis-label {
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-shadow: 0 0 3px var(--background);
+}
+
+.axis-label-title {
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+}
+
+/* -- Status and key -------------------------------------------------------- */
+
+.status {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  color: var(--text-dim);
+}
+
+.status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-live {
+  color: var(--ok);
+}
+
+.status-waiting {
+  color: var(--warn);
+}
+
+.status-lost {
+  color: var(--warn);
+}
+
+.status-error {
+  color: var(--error);
+}
+
+#legend {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  padding: 12px 14px;
+  max-width: min(320px, 60vw);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  backdrop-filter: blur(2px);
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.legend-row + .legend-row {
+  margin-top: 5px;
+}
+
+.legend-swatch {
+  width: 24px;
+  height: 24px;
+  flex: none;
+}
+
+.legend-label {
+  color: var(--text);
+}
+
+.legend-note {
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px solid var(--panel-border);
+  color: var(--text-dim);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  #legend {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .legend-note {
+    display: none;
+  }
 }

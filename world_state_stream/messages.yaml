@@ -1,0 +1,4 @@
+consume:
+  - WorldState
+
+produce: []

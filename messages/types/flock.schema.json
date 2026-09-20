@@ -10,7 +10,7 @@
       "pattern": "^[a-z][a-z0-9_]*$"
     },
     "position": {
-      "$ref": "coordinate.schema.json"
+      "$ref": "position.schema.json"
     },
     "velocity": {
       "$ref": "velocity.schema.json"

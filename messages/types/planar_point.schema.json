@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PlanarPoint",
+  "description": "A point on the reference plane in the local scene frame: meters east and north. It carries no height, because it lies on the plane by definition.",
+  "type": "object",
+  "properties": {
+    "x_meters": {
+      "description": "Meters east of the producer's origin.",
+      "type": "number"
+    },
+    "y_meters": {
+      "description": "Meters north of the producer's origin.",
+      "type": "number"
+    }
+  },
+  "required": [
+    "x_meters",
+    "y_meters"
+  ],
+  "additionalProperties": false
+}
